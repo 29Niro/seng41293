@@ -1,1 +1,4 @@
-<seng41293-nx-welcome></seng41293-nx-welcome> <router-outlet></router-outlet>
+<mat-toolbar color="primary">{{ email$ | async }}</mat-toolbar>
+<mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>
+<router-outlet></router-outlet>
+
