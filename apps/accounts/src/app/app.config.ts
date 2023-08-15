@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideAnimations(),
     importProvidersFrom(NgxsModule.forRoot([AppState], {
-        developmentMode: true,
+        developmentMode: isDevMode(),
     })),
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
