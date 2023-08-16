@@ -9,5 +9,6 @@
         "tools": true,
         "README.md": true,
         "tsconfig.base.json": true,
-    }
+    },
+    "vsicons.presets.angular": true
 }

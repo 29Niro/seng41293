@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'seng41293-login',
@@ -13,18 +14,30 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  emailCtrl = new FormControl('niro@gmail.com',[Validators.required,Validators.email]);
+  emailCtrl: FormControl;
+  loginFormGroup: FormGroup;
 
-  loginFormGroup = new FormGroup({
-    email: this.emailCtrl,
-    password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
-  });
+  private angularFireAuth: AngularFireAuth = inject(AngularFireAuth);  
+  
+  constructor(private router: Router) {
+    this.emailCtrl = new FormControl('niro@gmail.com', [
+      Validators.required,
+      Validators.email,
+    ]);
 
-  constructor(private router: Router) {}
+    this.loginFormGroup = new FormGroup({
+      email: this.emailCtrl,
+      password: new FormControl('123456', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+    });
 
-  onLogin() {
-    
-    // console.log(this.loginFormGroup.valid);
-    this.router.navigate(['/admin']);
+  }
+
+  async onLogin() {
+    await this.angularFireAuth.signInWithEmailAndPassword(this.emailCtrl.value, this.loginFormGroup.get('password')?.value).then(()=>{
+      this.router.navigate(['/admin']);
+    });
   }
 }
