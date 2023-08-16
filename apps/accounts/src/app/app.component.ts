@@ -16,16 +16,7 @@ import { AppState } from './state/app/app.state';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  // name = 'Niroshan';
-  // frameworks = ['Angular', 'React', 'Vue'];
-  // onClick() {
-  //   this.name = 'Niro';
-  //   console.log('Clicked');
-  // }
-
-  // constructor(protected appService: AppService){}
-
-  email$: Observable<string>;
+  email$: Observable<string | undefined | null>;
   loading$: Observable<boolean>;
 
   constructor(private store: Store) {

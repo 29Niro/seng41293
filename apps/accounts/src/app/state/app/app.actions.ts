@@ -1,9 +1,15 @@
+
 export class ShowLoading {
-    static readonly type = '[App] Show Loading';
+    public static readonly type = '[App] ShowLoading';
     constructor(public loading: boolean) { }
 }
 
-export class UpdateEmail {
-    static readonly type = '[App] Update Email';
-    constructor(public email: string) { }
+// export class UpdateEmail {
+//     public static readonly type = '[App] UpdateEmail';
+//     constructor(public email: string) { }
+// }
+
+export class UpdateUser {
+    public static readonly type = '[App] UpdateUser';
+    constructor(public user: firebase.default.User) { }
 }
