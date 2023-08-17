@@ -20,10 +20,9 @@
 
 <div>
     <mat-card class="mat-elevation-z1" *ngFor = "let grn of grns$ | async">
-        <!-- {{ grn.date }} -->
         <mat-card-header>
-            <mat-card-title>{{ grn.date }}</mat-card-title>
-            <mat-card-subtitle>{{ grn.customer.name  }}</mat-card-subtitle>
+            <mat-card-title>{{ grn.customer.name }}</mat-card-title>
+            <mat-card-subtitle>{{ grn.date | date:'longDate'  }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
             <p>Phone Number: {{ grn.customer.phone }}</p>
@@ -34,5 +33,3 @@
         </mat-card-actions>
     </mat-card>
 </div>
-
-<!-- {{ grnFormGroup.value | json }} -->
