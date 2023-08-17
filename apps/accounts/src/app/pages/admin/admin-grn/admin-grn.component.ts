@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -6,6 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
+import { Firestore, addDoc, collectionData, collection } from '@angular/fire/firestore';
 interface GRN {
   date: Date;
   customer: {
@@ -31,6 +32,8 @@ interface GRN {
 export class AdminGrnComponent {
   @Input({ required: true }) label!: string;
 
+  firestore: Firestore = inject(Firestore);
+
   dateCtrl = new FormControl();
   nameCtrl = new FormControl();
   phoneCtrl = new FormControl();
@@ -45,7 +48,15 @@ export class AdminGrnComponent {
     customer: this.customerCtrl,
   });
 
-  onSave(){
+  grnCollection = collection(this.firestore, 'grn');
+
+  async onSave(){
+    const date = new Date(this.dateCtrl.value);
     console.log(this.grnFormGroup.value);
+    const toSave = {
+      ...this.grnFormGroup.value,
+      date,
+    }
+    await addDoc(this.grnCollection, toSave)
   }
 }
