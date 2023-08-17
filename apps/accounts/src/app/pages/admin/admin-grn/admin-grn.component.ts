@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { Firestore, addDoc, collectionData, collection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 interface GRN {
   date: Date;
   customer: {
@@ -34,6 +35,8 @@ export class AdminGrnComponent {
 
   firestore: Firestore = inject(Firestore);
 
+  grns$: Observable<GRN[]>;
+
   dateCtrl = new FormControl();
   nameCtrl = new FormControl();
   phoneCtrl = new FormControl();
@@ -50,13 +53,33 @@ export class AdminGrnComponent {
 
   grnCollection = collection(this.firestore, 'grn');
 
+  constructor() {
+    this.grns$ = collectionData(this.grnCollection) as Observable<GRN[]>;
+    // this.grns$.subscribe((d)=>{
+    //   console.log(d);
+    // })
+  }
+
   async onSave(){
     const date = new Date(this.dateCtrl.value);
-    console.log(this.grnFormGroup.value);
+    // console.log(this.grnFormGroup.value);
     const toSave = {
       ...this.grnFormGroup.value,
       date,
     }
     await addDoc(this.grnCollection, toSave)
   }
+
+  // same as above
+  // async onSave() {
+  //   await addDoc(this.grnCollection, 
+  //     {
+  //       date: new Date(this.dateCtrl.value),
+  //       customer: {
+  //         name: this.nameCtrl.value,
+  //         phone: this.phoneCtrl.value,
+  //       },
+  //     }
+  //   );
+  // }
 }
