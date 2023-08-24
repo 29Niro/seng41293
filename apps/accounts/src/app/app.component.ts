@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-// import { AppService } from './services/app/app.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Observable } from 'rxjs';
@@ -22,6 +21,5 @@ export class AppComponent {
   constructor(private store: Store) {
     this.email$ = this.store.select(AppState.email);
     this.loading$ = this.store.select(AppState.loading);
-    // this.email$.subscribe((email) => console.log(email));
   }
 }
