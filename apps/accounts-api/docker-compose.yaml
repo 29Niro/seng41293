@@ -1,0 +1,19 @@
+version: '3'
+networks:
+  seng-network:
+    driver: bridge
+volumes:
+  seng-mongo:
+    driver: local
+services:
+  mongo:
+    image: mongo:6.0.3-focal
+    networks:
+      - seng-network
+    volumes:
+      - seng-mongo:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: super_admin
+      MONGO_INITDB_ROOT_PASSWORD: root_user
