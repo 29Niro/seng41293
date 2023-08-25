@@ -14,7 +14,7 @@
         "outputPath": "dist/apps/accounts-api",
         "main": "apps/accounts-api/src/main.ts",
         "tsConfig": "apps/accounts-api/tsconfig.app.json",
-        "assets": ["apps/accounts-api/src/assets"],
+        "assets": ["apps/accounts-api/src/environments"],
         "isolatedConfig": true,
         "webpackConfig": "apps/accounts-api/webpack.config.js"
       },

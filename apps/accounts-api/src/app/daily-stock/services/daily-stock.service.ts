@@ -7,14 +7,14 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class DailyStockService {
-  constructor(@InjectModel(DailyStock.name) private DailyStockModel: Model<DailyStock>) {}
+  constructor(@InjectModel(DailyStock.name) private dailyStockModel: Model<DailyStock>) {}
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   create(_createDailyStockDto: CreateDailyStockDto) {
     return 'This action adds a new dailyStock';
   }
 
   findAll():Promise<DailyStockDocument[]> {
-    return this.DailyStockModel.find().exec();
+    return this.dailyStockModel.find().exec();
   }
 
   findOne(id: number) {
