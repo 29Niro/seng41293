@@ -14,10 +14,11 @@ import { AppState } from './state/app/app.state';
 import { provideServiceWorker } from '@angular/service-worker';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { BaseUrlInterceptorService } from './services/_interceptors/base-url-interceptor/base-url-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,14 +29,15 @@ export const appConfig: ApplicationConfig = {
     ),
     importProvidersFrom(
       provideFirebaseApp(() =>
-      initializeApp({
-        apiKey: 'AIzaSyCVTxaFanZYEzVJ0t95ZWDFBUl1UMI7W-U',
-        authDomain: 'accounts-b87b0.firebaseapp.com',
-        projectId: 'accounts-b87b0',
-        storageBucket: 'accounts-b87b0.appspot.com',
-        messagingSenderId: '303085279192',
-        appId: '1:303085279192:web:131d93b73bf5a8ca6884ad',
-      }))
+        initializeApp({
+          apiKey: 'AIzaSyCVTxaFanZYEzVJ0t95ZWDFBUl1UMI7W-U',
+          authDomain: 'accounts-b87b0.firebaseapp.com',
+          projectId: 'accounts-b87b0',
+          storageBucket: 'accounts-b87b0.appspot.com',
+          messagingSenderId: '303085279192',
+          appId: '1:303085279192:web:131d93b73bf5a8ca6884ad',
+        })
+      )
     ),
     importProvidersFrom(
       AngularFireModule.initializeApp({
@@ -50,6 +52,11 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(provideAuth(() => getAuth())),
     importProvidersFrom(provideFirestore(() => getFirestore())),
     importProvidersFrom(HttpClientModule),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptorService,
+      multi: true,
+    },
     importProvidersFrom(MatMomentDateModule),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),

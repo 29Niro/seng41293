@@ -1,5 +1,3 @@
 <ul>
-    <li *ngFor="let item of dailyStock$ | async">
-        {{ item.amount }}
-    </li>
+    <li *ngFor="let item of dailyStock$ | async">{{ item.amount }}  {{ item.date|date:'longDate'}}</li>
 </ul>
