@@ -19,6 +19,7 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { BaseUrlInterceptorService } from './services/_interceptors/base-url-interceptor/base-url-interceptor.service';
+import {NgxsStoragePluginModule} from '@ngxs/storage-plugin'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       NgxsModule.forRoot([AppState], { developmentMode: isDevMode() })
     ),
+    importProvidersFrom(NgxsStoragePluginModule.forRoot()),
     importProvidersFrom(
       provideFirebaseApp(() =>
         initializeApp({

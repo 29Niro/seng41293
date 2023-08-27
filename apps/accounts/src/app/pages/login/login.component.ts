@@ -11,9 +11,7 @@ import {
 } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Store } from '@ngxs/store';
-import { UpdateUser } from '../../state/app/app.actions';
-import { catchError, from, tap, throwError } from 'rxjs';
-
+import { Login } from '../../state/app/app.actions';
 @Component({
   selector: 'seng41293-login',
   standalone: true,
@@ -42,31 +40,26 @@ export class LoginComponent {
     });
   }
 
+  // onLogin() {
+  //   const authPromise = this.angularFireAuth.signInWithEmailAndPassword(
+  //     this.emailCtrl.value,
+  //     this.loginFormGroup.get('password')?.value
+  //   );
+
+  //   from(authPromise).pipe(
+  //     tap((credential) => {
+  //       if (credential.user) {
+  //         this.store.dispatch(new UpdateUser(credential.user));
+  //       }
+  //     }),
+  //     tap(() => this.router.navigate(['/admin'])),
+  //     catchError((err) => {
+  //       return throwError(err);
+  //     })
+  //   ).subscribe();
+
   onLogin() {
-    const authPromise = this.angularFireAuth.signInWithEmailAndPassword(
-      this.emailCtrl.value,
-      this.loginFormGroup.get('password')?.value
-    );
-
-    from(authPromise).pipe(
-      tap((credential) => {
-        if (credential.user) {
-          this.store.dispatch(new UpdateUser(credential.user));
-        }
-      }),
-      tap(() => this.router.navigate(['/admin'])),
-      catchError((err) => {
-        return throwError(err);
-      })
-    ).subscribe();
-
-    // .then((c)=>{
-    //   {
-    //     if (c.user) {
-    //       this.store.dispatch(new UpdateUser(c.user));
-    //       this.router.navigate(['/admin']);
-    //     };
-    //   }
-    // });
+    const value = this.loginFormGroup.value;
+    this.store.dispatch(new Login(value.email, value.password));
   }
 }

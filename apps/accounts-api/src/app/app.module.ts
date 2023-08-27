@@ -3,6 +3,8 @@ import { DailyStockModule } from './daily-stock/daily-stock.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getEnvPath } from './app.helper';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/environments`);
 console.log(`envFilePath: ${envFilePath}`);
@@ -19,6 +21,8 @@ console.log(`envFilePath: ${envFilePath}`);
         uri: configService.get('MONGO_URL'),
       }),
     }),
+    UserModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
