@@ -2,7 +2,11 @@
   "name": "@seng41293/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "migrate:create": "migrate create --template-file ./apps/accounts-api/src/migrations-utils/template.ts --migrations-dir=\"./apps/accounts-api/src/migrations\" --compiler=\"ts:./apps/accounts-api/src/migrations-utils/ts-compiler.js\"",
+    "migrate:up": "migrate --migrations-dir=\"./apps/accounts-api/src/migrations\" --compiler=\"ts:./apps/accounts-api/src/migrations-utils/ts-compiler.js\" up",
+    "migrate:down": "migrate --migrations-dir=\"./apps/accounts-api/src/migrations\" --compiler=\"ts:./apps/accounts-api/src/migrations-utils/ts-compiler.js\" down"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.1.0",
@@ -30,7 +34,9 @@
     "@ngxs/store": "^3.8.1",
     "@nx/angular": "16.5.2",
     "axios": "^1.0.0",
+    "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
+    "migrate": "^2.0.0",
     "mongoose": "^7.4.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
@@ -60,6 +66,7 @@
     "@nx/webpack": "16.5.5",
     "@nx/workspace": "16.5.2",
     "@schematics/angular": "~16.1.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/jest": "^29.4.0",
     "@types/node": "~18.7.1",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
